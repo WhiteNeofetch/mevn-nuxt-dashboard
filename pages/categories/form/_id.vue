@@ -1,13 +1,13 @@
 <template>
- <Page>
+  <Page>
     <div class="row">
       <div class="col-md-9">
         <card>
-          <crud-form v-if="model" :form-schema="schema" :form-model="model" :title="config.formTitle" @on-submit="onFormSubmit"/>
-                    <!-- <p class="text-danger">
-                      {{ error }}
-                    </p>  -->
-     </card>
+        <crud-form v-if="model" :form-schema="schema" :form-model="model" :title="config.formTitle" @on-submit="onFormSubmit"/>
+<!--          <p class="text-danger">-->
+<!--            {{ error }}-->
+<!--          </p>-->
+        </card>
       </div>
       <div class="col-md-3"></div>
     </div>
@@ -24,7 +24,6 @@ import {config} from '../setup'
 
 //Mixins
 import {relationMixin} from "@/mixins/relation.mixin";
-import FormPageWrapper from '../../../components/FormPageWrapper.vue';
 
 export default {
   name: config.formName,
@@ -33,17 +32,19 @@ export default {
   components:{
     CrudForm:()=>import('@/components/CrudForm'),
     Card:() => import('@/components/Card'),
-    Page:()=>import('@/components/Page'),
-    FormPageWrapper:() => import ('@/components/FormPageWrapper'),
+    Page:()=>import('@/components/Page')
   },
   computed:{
-    
     ...mapGetters({
       item:`${config.crudName}/item`,
-      error:`${config.crudName}/itemsError`,
-      categories: 'categories/items'
+      error:`${config.crudName}/itemError`,
+      products: 'products/items'
     }),
-    isUpdated:({$route: {params: {id}, },}) =>  id !== undefined,
+    isUpdated:({
+                 $route: {
+                   params: {id},
+                 },
+               }) => id !== undefined,
   },
   data:()=>({
     model: null,
@@ -58,7 +59,7 @@ export default {
       updateItem: `${config.crudName}/update`,
 
       //bl
-      fetchCategories: 'categories/fetchAll'
+      fetchProducts: 'products/fetchAll'
     }),
     setModel(){
       this.model = {
@@ -68,37 +69,35 @@ export default {
     async onItemUpdate(){
       const updatedModel = {
         ...this.model,
-        category:this.model.category,
+        products:this.model.products.map(product=>product._id)
       }
-      await this.updateItem({id:this.$route.params.id,payload: updatedModel})
-      this.$router.back()
+        await this.updateItem({id:this.$route.params.id,payload: updatedModel})
+        this.$router.back()
     },
     async onItemCreate(){
-      await this.createItem(this.model)
-      this.$router.back()
+        await this.createItem(this.model)
+        this.$router.back()
     },
     async onFormSubmit(){
-      if(this.isUpdated){
-        this.onItemUpdate()
-        return
-      }
-      this.onItemCreate()
+        if(this.isUpdated){
+            this.onItemUpdate()
+          return
+        }
+        this.onItemCreate()
     }
   },
   async mounted() {
-    await this.fetchCategories()
-    console.log(this.categories)
-    this.setFields({fieldKey:'category',values:this.categories})
+     await this.fetchProducts()
+    this.setFields({fieldKey:'products',values:this.products})
     if(this.isUpdated){
       //мы получим объект с апи
-         console.log('inside')
       await this.fetchItem(this.$route.params.id)
       this.model = {...this.item}
       //this.model = {}
       console.log(2)
       return
     }
-    console.log('set1')
+    console.log(1+'set')
     this.setModel();
   }
 }

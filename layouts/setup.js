@@ -5,12 +5,16 @@ const menu =[
   },
   {
     name:"Категории",
-    to: '/caterogies'
+    to: '/categories'
   },
   {
     name:"Товары",
     to: '/products'
   },
+  {
+    name:'Заказы',
+    to:'/orders'
+  }
 ]
 
 export default menu

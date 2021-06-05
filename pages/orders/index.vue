@@ -28,9 +28,7 @@ export default {
   components:{
     
     Page:()=>import('@/components/Page'),
-    Icon: () => import ('@/components/icon/Icon'),
-    pageTable: () => import ('@/components/table/pageTable'),
-    
+    Icon: () => import ('@/components/icon/Icon')
 
   },
   data:()=>({

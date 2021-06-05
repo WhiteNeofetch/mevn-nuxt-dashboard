@@ -1,10 +1,8 @@
 export const config = {
-  name: 'Продукты',
-  crudName: 'products',
-  singleName: 'Продукт',
-  pageName:'ProductPage',
-  formName:'ProductForm',
-  formTitle: 'Форма Продукта',
+  name: 'Заказы',
+  crudName: 'orders',
+  singleName: 'Заказ',
+  pageName:'OrderPage'
 }
 
 export const columns = [

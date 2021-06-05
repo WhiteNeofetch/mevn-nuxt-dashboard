@@ -1,6 +1,7 @@
-<template>
+<template> 
   <div class="panel-body">
     <h2>{{title}}</h2>
+   
     <form @submit.prevent="validate">
       <vue-form-generator :schema="formSchema"
       :model="formModel"
@@ -14,7 +15,8 @@
         </button>
       </div>
     </form>
-  </div>
+   
+  </div> 
 </template>
 
 <script>
@@ -44,7 +46,14 @@ export default {
     async validate(){
       const errors = await this.$refs.form.validate()
       const isValid = errors.length = 0
-      if(!isValid){
+      console.log('check')
+      if(this.formModel.category=="")
+      {
+        console.log('work')
+        alert('Пожалуйста заполните поле категория')
+
+      }
+      else if(!isValid){
         this.$emit('on-submit',this.formModel)
        }
     },

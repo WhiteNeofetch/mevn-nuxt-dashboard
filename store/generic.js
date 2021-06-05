@@ -17,6 +17,7 @@ const crudStore = ({name,url,keyName}) =>{
       async fetchAll({commit}){
         try{
           const items = await genericService.fetchAll()
+
           commit('fetchItemsSuccess',items)
         } catch (err){
           commit('fetchItemsFail',{
@@ -28,6 +29,7 @@ const crudStore = ({name,url,keyName}) =>{
       async fetchOne({commit},id){
         try{
           const item = await genericService.fetchOne(id)
+
           commit('fetchItemSuccess',item)
         } catch (err){
           commit('fetchItemFail',{
@@ -38,6 +40,8 @@ const crudStore = ({name,url,keyName}) =>{
       },
       async create({commit}, payload){
         try{
+      
+          
           const item = await genericService.create(payload)
           commit('createItemSuccess',item)
         } catch (err){
@@ -47,9 +51,14 @@ const crudStore = ({name,url,keyName}) =>{
           })
         }
       },
-      async update({commit},{payload,id}){
+      async update({commit},{payload,id,image}){
         try{
-          const item = await genericService.update(id,payload)
+         
+          const fd = new FormData()
+          fd.append('image',image)
+
+          const item = await genericService.update(id,payload,image)
+          console.log(item + 1)
           commit('updateItemSuccess',item)
         } catch (err){
           commit('updateItemFail',{

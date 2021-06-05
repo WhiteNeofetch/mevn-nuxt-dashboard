@@ -13,7 +13,7 @@
 </template>
 
 <script>
-
+import {mapActions,mapGetters} from 'vuex'
 
 //components
 
@@ -21,17 +21,15 @@
 //setup
 import {columns,actions,config} from "./setup";
 import { crudMixin } from '@/mixins/crud.mixin'
+
 export default {
   name:config.pageName,
   middleware:'auth',
   mixins:[crudMixin({config})],
   components:{
-    
     Page:()=>import('@/components/Page'),
     Icon: () => import ('@/components/icon/Icon'),
-    pageTable: () => import ('@/components/table/pageTable'),
-    
-
+    pageTable: () => import ('@/components/table/pageTable')
   },
   data:()=>({
     columns,
@@ -41,12 +39,7 @@ export default {
   methods:{
     handleEdit({ id }){
       this.$router.push(`/${config.crudName}/form/${id}`)
-      console.log('Изменяем', id)
     },
-    async handleDelete({id}){
-      await this.deleteItem(id);
-      this.fetchItems();
-    }
   },
   mounted() {
     this.fetchItems()

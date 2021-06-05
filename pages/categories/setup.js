@@ -1,16 +1,15 @@
 export const config = {
-  name: 'Продукты',
-  crudName: 'products',
-  singleName: 'Продукт',
-  pageName:'ProductPage',
-  formName:'ProductForm',
-  formTitle: 'Форма Продукта',
+  name: 'Категории',
+  crudName: 'categories',
+  singleName: 'Категорию',
+  pageName:'CaterogyPage',
+  formName:'CategoryForm',
+  formTitle: 'Форма Категории',
 }
 
 export const columns = [
   {key:'title',name:'Название продукта'},
-  {key:'amount',name:'Доступное кол-во'},
-  {key:'price',name:'Цена'},
+  {key:'description',name:'Описание'},
 ]
 export const actions = [
   {className: 'btn btn-warning text-white',label:'Изменить',emit:'onEdit',actionKey:'_id'},
