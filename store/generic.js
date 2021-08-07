@@ -40,7 +40,7 @@ const crudStore = ({name,url,keyName}) =>{
       },
       async create({commit}, payload){
         try{
-      
+          console.log('fd11111')
           
           const item = await genericService.create(payload)
           commit('createItemSuccess',item)
@@ -51,14 +51,31 @@ const crudStore = ({name,url,keyName}) =>{
           })
         }
       },
+      
       async update({commit},{payload,id,image}){
         try{
-         
-          const fd = new FormData()
-          fd.append('image',image)
+          console.log(image)
+          // function DataURIToBlob(dataURI) {
+          //   const splitDataURI = dataURI.split(',')
+          //   const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1])
+          //   const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
+    
+          //   const ia = new Uint8Array(byteString.length)
+          //   for (let i = 0; i < byteString.length; i++)
+          //       ia[i] = byteString.charCodeAt(i)
+    
+          //   return new Blob([ia], { type: mimeString })
+          // }
 
-          const item = await genericService.update(id,payload,image)
-          console.log(item + 1)
+          // const file = DataURIToBlob(image)
+    
+          // const fd = new FormData()
+          
+         
+          // fd.append('image',file)
+          
+          const item = await genericService.update(id,payload,fd)
+          console.log(item)
           commit('updateItemSuccess',item)
         } catch (err){
           commit('updateItemFail',{
